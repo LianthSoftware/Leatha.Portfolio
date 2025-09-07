@@ -1,0 +1,213 @@
+﻿@page "/"
+@using Leatha.Portfolio.Blazor.Data
+@using Leatha.Portfolio.Blazor.Models
+
+<PageTitle>Leatha Portfolio</PageTitle>
+
+@* <div class="container" style="height: 100vh; background-color: #071013; border: 1px solid #1e7880; margin-top: 3rem;">
+    <div style="display: flex;">
+        <div class="d-flex">
+            <div style="margin-left: auto; margin-right: auto">
+                <h1>DAVID HRUŠKA</h1>
+                <h2>IT SOFTWARE DEVELOPER</h2>
+            </div>
+        </div>
+
+        <div style="background: radial-gradient(circle at center, #2aa5a8 0%, #14757a 100%);
+                border-radius: 50%;
+                width: 250px;
+                height: 250px;
+                box-shadow: 0 0 20px 15px rgb(47 178 181 / 28%);
+                border: 1px solid #3ad2df;
+                margin: 3rem;
+                margin-left: auto;">
+
+        </div>
+    </div>
+</div>
+ *@
+ 
+<div class="wrap">
+    <section>
+        <h1 class="title">DAVID HRUŠKA</h1>
+        <p class="subtitle">IT Software Developer</p>
+
+        <div class="chips" aria-label="Skills">
+            <span class="chip">C#</span>
+            <span class="chip">.NET</span>
+            <span class="chip">Blazor</span>
+            <span class="chip">Godot</span>
+            <span class="chip">Xamarin</span>
+            <span class="chip">WPF</span>
+        </div>
+
+        <div class="actions">
+            <a class="btn btn-primary" href="cv.pdf" download>Download CV</a>
+            <a class="btn btn-ghost" href="#contact">Contact</a>
+        </div>
+    </section>
+
+    <aside class="avatar-wrap" aria-hidden="true">
+        <div class="avatar">
+            <!-- Simple SVG silhouette placeholder -->
+@*             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar silhouette">
+                <path fill="#021014" d="M128 144c-38.1 0-69-30.9-69-69S89.9 6 128 6s69 30.9 69 69-30.9 69-69 69z"/>
+                <path fill="#051b1f" d="M31 228c0-41 43.5-74 97-74s97 33 97 74v22H31v-22z"/>
+            </svg> *@
+            <img src="img/portfolio_profile_image.jpg"/>
+        </div>
+    </aside>
+</div>
+
+<div class="section-wrap">
+    <section>
+        <p class="subtitle" style="color: white;">ABOUT</p>
+        <p style="color: white; font-size: 1.25rem; font-weight: 100;">Hello! My name is David and I am a seasoned developer, programming for over 15 years.</p>
+    </section>
+</div>
+
+<div class="section-wrap">
+    <section>
+        <p class="subtitle" style="color: white;">PROJECTS</p>
+
+        <div class="project-grid">
+            @foreach (var project in _projectItems)
+            {
+                // Example of per-item image style override (optional)
+                var imageStyle = project.Name.Contains("Penzijní Společnost", StringComparison.OrdinalIgnoreCase)
+                    ? "object-fit: initial"
+                    : null;
+
+                <ProjectCard Project="project" ImageStyle="@imageStyle" />
+            }
+        </div>
+    </section>
+</div>
+
+@code
+{
+    private readonly IReadOnlyList<Project> _projectItems = ProjectsData.All;
+}
+
+
+
+
+
+
+
+@* <section>
+    <div class="section-wrap">
+        <p class="subtitle" style="color: white;">ABOUT</p>
+        
+        <div style="display: grid; grid-template-columns: auto auto auto;">
+            <div style="width: 100%; height: 300px; border: 1px solid #173033;"></div>
+            <div style="width: 100%; height: 300px; border: 1px solid #173033;"></div>
+            <div style="width: 100%; height: 300px; border: 1px solid #173033;"></div>
+            <div style="width: 100%; height: 300px; border: 1px solid #173033;"></div>
+        </div>
+    </div>
+</section> *@
+
+@* <div class="section-wrap">
+    <section>
+        <h2 class="section-title" style="color: white;">Projects</h2>
+
+        <div class="project-grid">
+            <article class="project-card">
+                <div class="card-thumb">
+                    <img src="img/globus_logo_2.png" alt="Globus Logo" />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Globus</h3>
+                    <p class="card-text">Long-term project that required designing and developing new features for the backends for services providing products, coupons, shopping lists, image assets.&nbsp;This required communication with the client, preparing analysis and delivering new features.&nbsp;We were also in charge of the main Authorization system.</p>
+                    <div class="card-tags">
+                        <span class="tag">C#</span>
+                        <span class="tag">.NET</span>
+                        <span class="tag">Rest API</span>
+                        <span class="tag">MSSQL</span>
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Authorization</span>
+                        <span class="tag">Architecture</span>
+                        <span class="tag">Analysis</span>
+                    </div>
+                    <div>
+                        <p class="subtitle" style="margin: 0.5rem; text-align: center; font-size: 1rem; color: #22e6dc;">2021 - present</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="project-card">
+                <div class="card-thumb">
+                    <img src="img/kodys_logo_1.png" alt="KODYS Logo" />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">KODYS</h3>
+                    <p class="card-text">IntercallΓeamen·psiah an· ly Soa†·’s tat† 00%.</p>
+                    <div class="card-tags">
+                        <span class="tag">.NET</span>
+                        <span class="tag">C#</span>
+                    </div>
+                    <div>
+                        <p class="subtitle" style="margin: 0.5rem; text-align: center; font-size: 1rem; color: #22e6dc;">2019 - 2021</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="project-card">
+                <div class="card-thumb">
+                    <img src="img/kendaxa_logo_2.png" alt="KENDAXA Logo" />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">KENDAXA Development</h3>
+                    <p class="card-text">IntercallΓeamen·psiah an· ly Soa†·’s tat† 00%.</p>
+                    <div class="card-tags">
+                        <span class="tag">.NET</span>
+                        <span class="tag">C#</span>
+                    </div>
+                    <div>
+                        <p class="subtitle" style="margin: 0.5rem; text-align: center; font-size: 1rem; color: #22e6dc;">2019</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="project-card">
+                <div class="card-thumb">
+                    <img src="img/penzijni_spolecnost_ceske_pojistovny_logo_2.jpg" style="object-fit: initial" alt="PSČP Logo" />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Penzijní Společnost České Pojišťovny</h3>
+                    <p class="card-text">IntercallΓeamen·psiah an· ly Soa†·’s tat† 00%.</p>
+                    <div class="card-tags">
+                        <span class="tag">Blazor</span>
+                        <span class="tag">.NET</span>
+                        <span class="tag">C#</span>
+                    </div>
+                    <div>
+                        <p class="subtitle" style="margin: 0.5rem; text-align: center; font-size: 1rem; color: #22e6dc;">2017 - 2019</p>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="project-card">
+                <div class="card-thumb">
+                    <img src="img/ceska_sporitelna_logo_1.png" alt="ČS Logo" />
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Česká Spořitelna</h3>
+                    <p class="card-text">IntercallΓeamen·psiah an· ly Soa†·’s tat† 00%.</p>
+                    <div class="card-tags">
+                        <span class="tag">Blazor</span>
+                        <span class="tag">.NET</span>
+                        <span class="tag">C#</span>
+                    </div>
+                    <div>
+                        <p class="subtitle" style="margin: 0.5rem; text-align: center; font-size: 1rem; color: #22e6dc;">2017</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- duplicate .project-card for more items -->
+        </div>
+    </section>
+</div> *@
