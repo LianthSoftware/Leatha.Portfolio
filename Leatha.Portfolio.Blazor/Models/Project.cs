@@ -20,9 +20,20 @@
         public string[] Tags { get; init; } = Array.Empty<string>();
 
         public string YearRange
-            => YearEnd is not null ? $"{YearStart} - {YearEnd}" : $"{YearStart} - PRESENT";
+            => GetYearRange();
 
         public string AltText
             => string.IsNullOrWhiteSpace(ImageAlt) ? Name : ImageAlt;
+
+        private string GetYearRange()
+        {
+            if (YearStart == YearEnd)
+                return YearStart.ToString();
+
+            if (YearEnd is not null)
+                return $"{ YearStart } - { YearEnd }";
+
+            return $"{ YearStart } - PRESENT";
+        }
     }
 }

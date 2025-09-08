@@ -30,7 +30,8 @@
 <div class="wrap">
     <section>
         <h1 class="title">DAVID HRUŠKA</h1>
-        <p class="subtitle">IT Software Developer</p>
+        <p class="subtitle m-0">IT Software Developer<span><img src="img/icon_flag_czechia_48.png" alt="Czech Flag" style="width: 32px; height: 32px; margin-left: 1rem;" /></span></p>
+        <p style="margin-bottom: 1.5rem; text-shadow: 3px 3px 12px rgb(0 255 255 / 29%); color: #627978;">@_years years old</p>
 
         <div class="chips" aria-label="Skills">
             <span class="chip">C#</span>
@@ -42,7 +43,7 @@
         </div>
 
         <div class="actions">
-            <a class="btn btn-primary" href="cv.pdf" download>Download CV</a>
+            <a class="btn btn-primary" href="CV_David_Hruska.pdf" download>Download CV</a>
             <a class="btn btn-ghost" href="#contact">Contact</a>
         </div>
     </section>
@@ -50,19 +51,41 @@
     <aside class="avatar-wrap" aria-hidden="true">
         <div class="avatar">
             <!-- Simple SVG silhouette placeholder -->
-@*             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar silhouette">
+            @*             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar silhouette">
                 <path fill="#021014" d="M128 144c-38.1 0-69-30.9-69-69S89.9 6 128 6s69 30.9 69 69-30.9 69-69 69z"/>
                 <path fill="#051b1f" d="M31 228c0-41 43.5-74 97-74s97 33 97 74v22H31v-22z"/>
             </svg> *@
-            <img src="img/portfolio_profile_image.jpg"/>
+            @* <img src="img/portfolio_profile_image.jpg"/> *@
+            <img src="img/profile_photo_portfolio_1.png" alt="Profile Photo"/>
         </div>
     </aside>
 </div>
 
+@code {
+    private readonly int _years = CalculateAge(new DateTime(1994, 4, 20));
+
+    private static int CalculateAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - birthDate.Year;
+
+        // if birthday hasn't occurred yet this year, subtract 1
+        if (birthDate.Date > today.AddYears(-age))
+        {
+            age--;
+        }
+
+        return age;
+    }
+}
+
 <div class="section-wrap">
     <section>
         <p class="subtitle" style="color: white;">ABOUT</p>
-        <p style="color: white; font-size: 1.25rem; font-weight: 100;">Hello! My name is David and I am a seasoned developer, programming for over 15 years.</p>
+        <p style="color: white; font-size: 1.25rem; font-weight: 100;">Hello! 😊<br/>
+            My name is David and I am a seasoned developer, programming for over 15 years. I really like C# and whole .NET ecosystem, so I made it my primary language of choice on various problems and solutions.<br/>
+            I am trying to improve myself, learning new technologies, reading articles and watching technology videos.<br>
+            Hand in hand with working on computers, I am also keen on sports - from Frisbee and netball to more team events like laser tag games, escape games, pub gatherings and such.</p>
     </section>
 </div>
 
@@ -90,7 +113,12 @@
 }
 
 
-
+<div class="section-wrap">
+    <section>
+        <p class="subtitle" style="color: white;">TECHNOLOGIES</p>
+        <TechnologiesTable />
+    </section>
+</div>
 
 
 

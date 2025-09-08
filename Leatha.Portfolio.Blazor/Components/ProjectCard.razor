@@ -11,26 +11,27 @@
 
         @if (!string.IsNullOrWhiteSpace(Project.DescriptionHtml))
         {
-            // DescriptionHtml is treated as already-sanitized/trusted HTML you control.
             <div class="card-text">@((MarkupString)Project.DescriptionHtml)</div>
         }
 
-        @if (Project.Tags is { Length: > 0 })
-        {
-            <div class="card-tags">
-                @foreach (var tag in Project.Tags)
-                {
-                    <span class="tag">@tag</span>
-                }
-            </div>
-        }
+        <!-- Footer that sticks to bottom: tags + year -->
+        <div class="card-footer">
+            @if (Project.Tags is { Length: > 0 })
+            {
+                <div class="card-tags">
+                    @foreach (var tag in Project.Tags)
+                    {
+                        <span class="tag">@tag</span>
+                    }
+                </div>
+            }
 
-        <div style="border-top: 1px solid #0a2b2f; margin-top: 0.5rem; padding-top: 0.75rem;">
-            <p class="subtitle" style="margin: 0.5rem; text-align: center; font-size: 1rem; color: #8bcac7;">
-                @Project.YearRange
-            </p>
+            <div class="card-meta">
+                <p class="subtitle">@Project.YearRange</p>
+            </div>
         </div>
     </div>
+
 </article>
 
 @code {

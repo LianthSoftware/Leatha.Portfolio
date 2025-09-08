@@ -80,6 +80,26 @@ h1:focus {
     --btn-border: #22e6dc;
     --btn-text: #dffefe;
     --card-shadow: 0 0 0 1px rgba(0,255,255,.08), 0 0 60px rgba(0,255,255,.06) inset;
+
+
+    --footer-bg: radial-gradient(1200px 600px at 50% -200px, #14363a 0%, #0f2226 45%, #0b181b 100%);
+  --footer-border: rgba(255, 255, 255, 0.06);
+  --text: #e9f1f1;
+/*  --muted: #b6c7c7;*/
+/*  --chip-bg: rgba(255,255,255,.06);*/
+  --chip-bg-hover: rgba(255,255,255,.12);
+  --glow: 0 0 0 1px var(--footer-border), 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
+
+
+
+  --card-bg: radial-gradient(1200px 600px at 50% -240px, #14363a 0%, #0f2226 45%, #0b181b 100%);
+  --border: rgba(255,255,255,.08);
+  --border-soft: rgba(255,255,255,.06);
+  /*--text: #e9f1f1;*/
+  /*--muted: #b6c7c7;*/
+  --chip: rgba(255,255,255,.06);
+  --chip-hover: rgba(255,255,255,.12);
+  --shadow: 0 0 0 1px var(--border-soft), 0 12px 36px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
 }
 
 /* Make it fill the viewport smoothly */
@@ -367,6 +387,7 @@ display: block;*/
     flex-direction: column;
     gap: 10px;
     background: linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.12));
+    background: radial-gradient(1200px 600px at 50% -240px, #14363a 0%, #0f2226 45%, #0b181b 100%)
 }
 
 .card-title {
@@ -435,3 +456,205 @@ ul {
         gap: 24px;
     }
 }
+
+
+
+/* === Make cards equal height & allow footer to stick === */
+.project-grid {
+    /* stretch grid items so cards can fill the full row height */
+    align-items: stretch;
+}
+
+.project-card {
+    /* turn the whole card into a vertical flex container */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* your .card-body already has display:flex + column; just add flex:1 */
+.card-body {
+    flex: 1; /* let body take remaining height under the image */
+}
+
+/* NEW: footer that stays at the bottom of the card body */
+.card-meta {
+    margin-top: auto; /* pushes this block to the bottom */
+    border-top: 1px solid #0a2b2f;
+    padding-top: 0.75rem;
+    text-align: center;
+}
+
+    .card-meta .subtitle {
+        margin: 0.5rem 0 0;
+        font-size: 1rem;
+        color: #8bcac7;
+    }
+
+
+/* Footer container anchored to bottom */
+.card-footer {
+    margin-top: auto; /* pushes footer to the bottom */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-top: 1px solid #0a2b2f; /* single divider for both tags + year */
+    padding-top: 1.25rem;
+}
+
+/* Tags no longer need their own top border (avoid double line) */
+.card-tags {
+    border-top: none;
+    padding-top: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Keep the year styling */
+.card-meta {
+    text-align: center;
+}
+
+    .card-meta .subtitle {
+        margin: 0.5rem 0 0;
+        font-size: 1rem;
+        color: #8bcac7;
+    }
+
+/* Ensure equal-height cards across the row (you already added most of this) */
+.project-grid {
+    align-items: stretch;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+
+
+
+
+
+
+.site-footer {
+    /*margin-top: 4rem;*/
+    border-top: 1px solid var(--footer-border);
+    background: var(--footer-bg);
+    color: var(--text);
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem clamp(1rem, 3vw, 2rem);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+}
+
+.logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(180deg, #2bd4c5, #1fa3b2 70%);
+    color: #072529;
+    font-weight: 800;
+    letter-spacing: .5px;
+    box-shadow: var(--glow);
+}
+
+.copy {
+    font-size: .98rem;
+    color: var(--muted);
+}
+
+.contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    justify-self: end;
+}
+
+.contact {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .55rem .8rem;
+    border-radius: 999px;
+    border: 1px solid var(--footer-border);
+    background: var(--chip-bg);
+    color: var(--text);
+    text-decoration: none;
+    font-size: .95rem;
+    line-height: 1;
+    transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    box-shadow: var(--glow);
+}
+
+    .contact:hover,
+    .contact:focus-visible {
+        background: var(--chip-bg-hover);
+        border-color: rgba(255,255,255,.12);
+        transform: translateY(-1px);
+        color: #8bcac7;
+    }
+
+.icon {
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    opacity: .9;
+}
+
+.label {
+    opacity: .95;
+}
+
+/* Mobile layout */
+@media (max-width: 640px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .contacts {
+        justify-self: start;
+    }
+
+    .brand .logo {
+        margin-left: auto;
+    }
+
+    .brand .copy {
+        margin-right: auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
