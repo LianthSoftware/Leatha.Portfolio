@@ -1,0 +1,263 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> ResourceLocale
+
+@page "/"
+@* @page "/cs"
+@page "/en" *@
+
+<PageTitle>David Hruška - Portfolio</PageTitle>
+
+<div style="position: fixed; display: flex; width: 100%;">
+    <a href="/" class="main-logo">DH</a>
+    @* <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem; margin-left: auto; margin-right: auto;">All projects</p> *@
+    <div class="section-wrap">
+        <section>
+@*             <a href="/projects">Projects</a>
+            <a href="/author">Author</a> *@
+        </section>
+    </div>
+    <LanguageSwitcher/>
+</div>
+
+@* <LanguageSwitcher />
+<a href="/" class="main-logo">DH</a> *@
+
+<div class="wrap">
+    <section>
+        <h1 class="title">DAVID HRUŠKA</h1>
+        <p class="subtitle m-0">@ResourceLocale["resources_common_job_title"]<span><img src="img/icon_flag_czechia_48.png" alt="Czech Flag" style="width: 32px; height: 32px; margin-left: 1rem;" /></span></p>
+        <p style="margin-bottom: 1.5rem; text-shadow: 3px 3px 12px rgb(0 255 255 / 29%); color: #627978;">@_years @ResourceLocale["resource_common_years_subtitle"]</p>
+
+        <div class="chips" aria-label="Skills">
+            <span class="chip">C#</span>
+            <span class="chip">.NET</span>
+            <span class="chip">Blazor</span>
+            <span class="chip">Godot</span>
+            <span class="chip">MSSQL</span>
+            <span class="chip">MongoDB</span>
+        </div>
+
+        <div class="actions">
+            <a class="btn btn-primary" href="CV_David_Hruska.pdf" download>@ResourceLocale["resource_common_download_button"]</a>
+            <a class="btn btn-ghost" href="#contact">@ResourceLocale["resource_common_contact_button"]</a>
+        </div>
+    </section>
+
+    <aside class="avatar-wrap" aria-hidden="true">
+        <div class="avatar">
+            <!-- Simple SVG silhouette placeholder -->
+            @*             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar silhouette">
+                <path fill="#021014" d="M128 144c-38.1 0-69-30.9-69-69S89.9 6 128 6s69 30.9 69 69-30.9 69-69 69z"/>
+                <path fill="#051b1f" d="M31 228c0-41 43.5-74 97-74s97 33 97 74v22H31v-22z"/>
+            </svg> *@
+            <img src="img/profile_photo_portfolio_1.png" alt="Profile Photo"/>
+        </div>
+        <label class="acception-offers">@ResourceLocale["resource_common_accepting_offers_label"]</label>
+    </aside>
+</div>
+
+@code {
+    private readonly int _years = CalculateAge(new DateTime(1994, 4, 20));
+
+    private static int CalculateAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - birthDate.Year;
+
+        // If birthday hasn't occurred yet this year, subtract 1.
+        if (birthDate.Date > today.AddYears(-age))
+        {
+            age--;
+        }
+
+        return age;
+    }
+}
+
+<div class="section-wrap">
+    <section>
+        <p class="subtitle text-white">@ResourceLocale["resource_common_section_about_title"]</p>
+        <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_1_label"]</p>
+        <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_2_label"]</p>
+        <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_3_label"]</p>
+        <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_4_label"]</p>
+    </section>
+</div>
+
+<div class="section-wrap">
+    <section>
+        <p class="subtitle" style="color: white;">@ResourceLocale["resource_common_section_projects_title"]</p>
+
+        <div class="project-grid">
+            @foreach (var project in _projectItems.OrderByDescending(i => i.Id).Take(3))
+            {
+                // Example of per-item image style override (optional)
+                var imageStyle = project.Name.Contains("Penzijní Společnost", StringComparison.OrdinalIgnoreCase)
+                    ? "object-fit: initial"
+                    : null;
+
+                <ProjectCard Project="project" ImageStyle="@imageStyle" />
+            }
+
+        </div>
+        
+        <div class="actions d-flex" style="margin-top: 4rem;">
+            <a class="btn btn-ghost ms-auto me-auto" href="/projects">
+                @ResourceLocale["resource_common_show_more_button"]<br />
+                <span style="color: #6c8786; font-size: 0.75rem;">@string.Format(ResourceLocale["resource_common_show_more_total_label"], _projectItems.Count)</span>
+            </a>
+        </div>
+    </section>
+</div>
+
+@code
+{
+    private readonly IReadOnlyList<Project> _projectItems = ProjectsData.All;
+}
+
+
+<div class="section-wrap">
+    <section>
+        <p class="subtitle" style="color: white;">@ResourceLocale["resource_common_section_technologies_title"]</p>
+        <TechnologiesTable />
+    </section>
+</div>
+
+<div class="section-wrap">
+    <section>
+        @* <h2 class="section-title">What I Build</h2> *@
+        <p class="subtitle" style="color: white;">My offers</p>
+        
+        <div class="categories">
+            <!-- 1) Long-term Projects -->
+            <article class="cat-row">
+                <div class="cat-icon">
+                    <!-- Calendar/roadmap icon -->
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                        <rect x="9" y="10" width="30" height="26" rx="4"/>
+                        <line x1="9" y1="16" x2="39" y2="16"/>
+                        <circle cx="18" cy="24" r="2"/>
+                        <circle cx="24" cy="24" r="2"/>
+                        <circle cx="30" cy="24" r="2"/>
+                        <line x1="16" y1="30" x2="32" y2="30"/>
+                        <line x1="16" y1="8" x2="16" y2="12"/>
+                        <line x1="32" y1="8" x2="32" y2="12"/>
+                    </svg>
+
+                </div>
+                <div class="cat-content">
+                    <h3>Long-term Projects</h3>
+                    <p>End-to-end delivery over months/years with stable roadmaps and measurable milestones.</p>
+                    <ul>
+                        <li>Scalable .NET backends (REST/SignalR/WebSockets)</li>
+                        <li>Automated CI/CD, observability, and staged rollouts</li>
+                        <li>Documentation, maintenance, and knowledge transfer</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- 2) Web Development -->
+            <article class="cat-row">
+                <div class="cat-icon">
+                    <!-- Web/browser icon -->
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                        <rect x="7" y="11" width="34" height="24" rx="4"/>
+                        <line x1="7" y1="16" x2="41" y2="16"/>
+    @*                     <circle cx="13" cy="14" r="1"/>
+                        <circle cx="17" cy="14" r="1"/>
+                        <circle cx="21" cy="14" r="1"/> *@
+                        <path d="M20 30l-4-4 4-4"/>
+                        <path d="M28 22l4 4-4 4"/>
+                        <line x1="22" y1="32" x2="26" y2="20"/>
+                    </svg>
+
+                </div>
+                <div class="cat-content">
+                    <h3>Web Development</h3>
+                    <p>Modern SPAs with a focus on performance, accessibility, and clean component architecture.</p>
+                    <ul>
+                        <li>Blazor (WASM/Server), ASP.NET Core, Razor</li>
+                        <li>API design, auth (JWT/IdentityServer), caching</li>
+                        <li>Responsive UI and design systems</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- 3) Mobile Development -->
+            <article class="cat-row">
+                <div class="cat-icon">
+                    <!-- Mobile/phone icon -->
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                        <rect x="16" y="7" width="16" height="34" rx="4"/>
+                        <line x1="20" y1="12" x2="28" y2="12"/>
+                        <circle class="fill" cx="24" cy="34" r="1.8"/>
+                    </svg>
+
+                </div>
+                <div class="cat-content">
+                    <h3>Mobile Development</h3>
+                    <p>Cross-platform apps with native feel and shared business logic.</p>
+                    <ul>
+                        <li>.NET MAUI, Xamarin.Forms migration</li>
+                        <li>Offline-first, secure storage, push notifications</li>
+                        <li>API sync, background services, performance profiling</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- 4) Game Development -->
+            <article class="cat-row">
+                <div class="cat-icon">
+                    <!-- Gamepad icon -->
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                        <path d="M12 30c0-5 4-9 9-9h6c5 0 9 4 9 9 0 2.8-1.9 4.5-4.2 4.5-1.8 0-3.1-.9-4.7-2.5h-6.2c-1.6 1.6-2.9 2.5-4.7 2.5C13.9 34.5 12 32.8 12 30Z"/>
+                        <line x1="18" y1="26" x2="18" y2="30"/>
+                        <line x1="16" y1="28" x2="20" y2="28"/>
+                        <circle class="fill" cx="31.5" cy="28" r="1.7"/>
+                        <circle class="fill" cx="35.5" cy="26.8" r="1.2" />
+                    </svg>
+
+                </div>
+                <div class="cat-content">
+                    <h3>Game Development</h3>
+                    <p>Gameplay systems and tools for 2D/3D with clean, testable C# code.</p>
+                    <ul>
+                        <li>Godot 4 (C#), Unity (C#) foundations</li>
+                        <li>Shaders/effects, UI, save systems, tooling</li>
+                        <li>Networking (SignalR/WebSockets) for co-op modes</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Optional 5th: Custom Development-->
+            <article class="cat-row">
+                <div class="cat-icon">
+                    <!-- Custom Development Icon -->
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                        <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Gear ring -->
+                            <circle cx="24" cy="24" r="9"/>
+                            <!-- Gear notches (minimal, even spacing) -->
+                            <path d="M24 14v-3M24 37v-3M14 24h-3M37 24h-3M17 17l-2-2M33 33l-2-2M17 31l-2 2M33 15l-2 2"/>
+                            <!-- Checkmark -->
+                            <path d="M20.5 24.5l3 3l6-6"/>
+                        </g>
+                    </svg>
+
+                </div>
+                <div class="cat-content">
+                    <h3>Custom Development</h3>
+                    <p>Bespoke solutions tailored to specific workflows and constraints.</p>
+                    <ul>
+                        <li>Integrations, data pipelines, admin dashboards</li>
+                        <li>Performance tuning & refactors of legacy code</li>
+                        <li>Proof-of-concepts & rapid prototyping</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+<!-- FOOTER -->
+<LeathaFooter />

@@ -1,0 +1,198 @@
+﻿
+/* =====================
+   Responsive add-on
+   Matches the teal/blue cyber aesthetic already in app.css
+   Drop this file next to app.css and include it after app.css
+   ===================== */
+
+/* Utility: container widths on very wide screens */
+/*@media (min-width: 1400px) {
+  .wrap, .section-wrap, .footer-inner { max-width: 1200px; }
+}*/
+
+@media (min-width: 1400px) {
+    .site-footer .footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+}
+
+/* Large desktops down (≤1200px) */
+@media (max-width: 1200px) {
+    .section-wrap {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+}
+
+/* Desktops/Tablets (≤992px) */
+@media (max-width: 992px) {
+    .wrap {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-top: 36px;
+        text-align: center;
+    }
+
+    .avatar-wrap {
+        order: -1;
+        margin-bottom: 2rem;
+    }
+
+    .actions {
+        margin-top: 3rem;
+        justify-content: center;
+    }
+
+    .chips {
+        justify-content: center;
+    }
+
+    .section-wrap {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+
+        .description-paragraph {
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+        }
+    }
+
+    .project {
+        .cat-content {
+            .project-description, h3 {
+                text-align: center;
+            }
+        }
+    }
+
+    .cat-row,
+    .cat-row:nth-child(odd) {
+        grid-template-columns: 1fr;
+    }
+
+    .cat-row .cat-icon {
+        order: 0;
+        width: 220px;
+        margin: 0 auto;
+    }
+
+/*    .tech-card {
+        text-align: center;
+
+        .tech-years {
+            text-align: center !important;
+        }
+    }*/
+
+    /* Stack ALL rows: icon on top, content below */
+    .categories .cat-row,
+    .categories .cat-row:nth-child(odd) {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "icon" "content";
+        gap: 18px;
+    }
+
+    /* Center the icon box and give it a comfortable size */
+    .categories .cat-row .cat-icon {
+        width: 220px;
+        margin: 0 auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    /* Optional: spacing below the icon so it breathes */
+    .categories .cat-row .cat-icon {
+        margin-bottom: .5rem;
+    }
+
+    /* Make the text block full width */
+    .categories .cat-row .cat-content {
+        width: 100%;
+        text-align: left; /* or center if you prefer */
+    }
+}
+
+/* Tablets/large phones (≤768px) */
+@media (max-width: 768px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .contacts {
+        justify-self: start;
+    }
+
+    .brand .logo {
+        margin-left: auto;
+    }
+
+    .brand .copy {
+        margin-right: auto;
+    }
+
+    .tech-card {
+        text-align: center;
+
+        .tech-years {
+            text-align: center !important;
+        }
+    }
+
+    .categories .cat-row:nth-child(odd) .cat-icon {
+        order: 0;
+    }
+
+    .categories .cat-row .cat-icon {
+        /*width: 200px;*/
+    }
+
+    .site-footer {
+        .footer-inner {
+            grid-template-columns: 1fr; /* one column */
+            grid-template-areas:
+                "brand" "contacts"; /* contacts on second line */
+            row-gap: .9rem;
+
+            .brand {
+                justify-self: center;
+            }
+
+            .contacts {
+                justify-self: center; /* align left under brand */
+                gap: .5rem;
+                flex-wrap: wrap; /* allow wrapping to multiple rows */
+                margin-top: 1rem;
+            }
+        }
+    }
+}
+
+/* Small phones (≤576px) */
+@media (max-width: 576px) {
+    .categories .cat-row .cat-icon {
+        /*width: 180px;*/
+    }
+}
+
+/* Ultra-small devices (≤360px) */
+@media (max-width: 360px) {
+
+    .site-footer {
+        .footer-inner {
+            .contact {
+                padding: .45rem .65rem;
+                font-size: .9rem;
+
+                .icon {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+    }
+}

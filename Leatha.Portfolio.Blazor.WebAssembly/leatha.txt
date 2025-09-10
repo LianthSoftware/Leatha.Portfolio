@@ -1,0 +1,2 @@
+﻿SASS command:
+  sass --watch Styles:wwwroot/css

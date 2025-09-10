@@ -1,0 +1,74 @@
+﻿@using Leatha.Portfolio.Blazor.WebAssembly.Services
+@inject LanguageService LanguageService
+
+@* <select value="@_current" @onchange="OnChange">
+    <option value="en">🇬🇧 English</option>
+    <option value="cs">🇨🇿 Čeština</option>
+</select> *@
+
+@* <div class="language-dropdown dropdown">
+    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        @(_current == "en"
+            ? (MarkupString)"<img src='img/icon_united_kingdom_48.png' />"
+            : (MarkupString)"<img src='img/icon_flag_czechia_48.png' />")
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="#" @onclick="() => ChangeLang(0)">
+                <img src="img/icon_united_kingdom_48.png" /> English
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="#" @onclick="() => ChangeLang(1)">
+                <img src="img/icon_flag_czechia_48.png" /> Čeština
+            </a>
+        </li>
+    </ul>
+</div> *@
+
+<div class="language-dropdown dropdown">
+    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        @(_current == "en"
+            ? (MarkupString)"<img src='img/icon_united_kingdom_48.png' />"
+            : (MarkupString)"<img src='img/icon_flag_czechia_48.png' />")
+    </button>
+
+    <ul class="dropdown-menu">
+        <li>
+            <button class="dropdown-item" @onclick="() => ChangeLang(0)">
+                <img src="img/icon_united_kingdom_48.png" alt="English Language" /> English
+            </button>
+        </li>
+        <li>
+            <button class="dropdown-item" @onclick="() => ChangeLang(1)">
+                <img src="img/icon_flag_czechia_48.png" alt="Czech Language" /> Čeština
+            </button>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private string _current = "en";
+
+    protected override void OnInitialized()
+    {
+        _current = LanguageService.Current;
+    }
+
+    private async Task ChangeLang(int id)
+    {
+        var lang = id == 1 ? "cs" : "en";
+        await LanguageService.SetAsync(lang);
+        _current = lang;
+    }
+
+    // private async Task OnChange(ChangeEventArgs e)
+    // {
+    //     var lang = e.Value?.ToString() ?? "en";
+    //     if (lang != _current)
+    //     {
+    //         await LanguageService.SetAsync(lang);
+    //         _current = LanguageService.Current;
+    //     }
+    // }
+}

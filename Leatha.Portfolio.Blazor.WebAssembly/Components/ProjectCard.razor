@@ -1,0 +1,45 @@
+﻿@inherits ComponentBase
+
+<article class="project-card">
+    <div class="card-thumb">
+        <img src="@Project.ImagePath" alt="@Project.AltText" style="@ImageStyle" />
+    </div>
+
+    <div class="card-body">
+        <h3 class="card-title">@Project.Name</h3>
+
+        @if (!string.IsNullOrWhiteSpace(Project.Description.GetTranslation()))
+        {
+            <div class="card-text">@((MarkupString)Project.Description.GetTranslation())</div>
+        }
+
+        <!-- Footer that sticks to bottom: tags + year -->
+        <div class="card-footer">
+            @if (Project.Tags is { Length: > 0 })
+            {
+                <div class="card-tags">
+                    @foreach (var tag in Project.Tags)
+                    {
+                        <span class="tag">@tag</span>
+                    }
+                </div>
+            }
+
+            <div class="card-meta">
+                <p class="subtitle">@Project.YearRange</p>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+@code {
+    [Parameter, EditorRequired]
+    public Project Project { get; set; } = default!;
+
+    /// <summary>
+    /// Optional inline style override for the <img/> (e.g., "object-fit: initial").
+    /// </summary>
+    [Parameter]
+    public string? ImageStyle { get; set; }
+}

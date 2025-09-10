@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="resources_common_job_title" xml:space="preserve">
+    <value>IT Software Vývojář</value>
+  </data>
+  <data name="resource_common_accepting_offers_label" xml:space="preserve">
+    <value>Přijímám nabídky!</value>
+  </data>
+  <data name="resource_common_contact_button" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="resource_common_download_button" xml:space="preserve">
+    <value>Stáhnout CV</value>
+  </data>
+  <data name="resource_common_section_about_description_1_label" xml:space="preserve">
+    <value>Ahoj! 😊</value>
+  </data>
+  <data name="resource_common_section_about_description_2_label" xml:space="preserve">
+    <value>Jmenuji se David a jsem zkušený vývojář s více než 15 lety praxe v programování. Mám velkou vášeň pro C# a celý ekosystém .NET, který jsem si zvolil jako hlavní nástroj pro řešení široké škály problémů a tvorbu softwarových řešení.</value>
+  </data>
+  <data name="resource_common_section_about_description_3_label" xml:space="preserve">
+    <value>Stále se snažím profesně růst — objevovat nové technologie, číst odborné články a sledovat videa zaměřená na moderní trendy v IT.</value>
+  </data>
+  <data name="resource_common_section_about_description_4_label" xml:space="preserve">
+    <value>Mimo programování se rád věnuji sportu a společenským aktivitám. Ať už jde o frisbee nebo netball, týmové akce jako laser game, únikové hry či posezení v hospodě, baví mě být aktivní a trávit čas s lidmi. A přesto jsem někdy naprosto spokojený jen doma na gauči při sledování filmů nebo hraní her.</value>
+  </data>
+  <data name="resource_common_section_about_title" xml:space="preserve">
+    <value>O mě</value>
+  </data>
+  <data name="resource_common_years_subtitle" xml:space="preserve">
+    <value>let</value>
+  </data>
+  <data name="resource_common_show_more_button" xml:space="preserve">
+    <value>Zobrazit více</value>
+  </data>
+  <data name="resource_common_show_more_total_label" xml:space="preserve">
+    <value>(Celkem {0})</value>
+  </data>
+  <data name="resource_common_tech_table_years_label" xml:space="preserve">
+    <value>(V letech)</value>
+  </data>
+
+  <data name="resource_common_section_projects_title" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="resource_common_section_technologies_title" xml:space="preserve">
+    <value>Technologie</value>
+  </data>
+
+  <data name="resource_common_tech_table_operating_systems_title" xml:space="preserve">
+    <value>Operační Systémy</value>
+  </data>
+  <data name="resource_common_tech_table_analysis_design_title" xml:space="preserve">
+    <value>Analýza &amp; Design</value>
+  </data>
+  <data name="resource_common_tech_table_project_control_title" xml:space="preserve">
+    <value>Projektové Řízení</value>
+  </data>
+  <data name="resource_common_tech_table_code_flow_title" xml:space="preserve">
+    <value>Kódové Řízení</value>
+  </data>
+  <data name="resource_common_tech_table_databases_title" xml:space="preserve">
+    <value>Databáze</value>
+  </data>
+  <data name="resource_common_tech_table_programming_languages_title" xml:space="preserve">
+    <value>Programovací Jazyky</value>
+  </data>
+  <data name="resource_common_tech_table_web_technologies_title" xml:space="preserve">
+    <value>Webové Technologie</value>
+  </data>
+  <data name="resource_common_tech_table_mobile_technologies_title" xml:space="preserve">
+    <value>Mobilní Technologie</value>
+  </data>
+  <data name="resource_common_tech_table_game_technologies_title" xml:space="preserve">
+    <value>Herní Technologie</value>
+  </data>
+  <data name="resource_common_tech_table_other_title" xml:space="preserve">
+    <value>Jiné</value>
+  </data>
+  <data name="resource_common_tech_table_currently_learning_title" xml:space="preserve">
+    <value>Učím se</value>
+  </data>
+
+  <data name="resource_common_tech_table_area_header" xml:space="preserve">
+    <value>Oblast</value>
+  </data>
+  <data name="resource_common_tech_table_technology_header" xml:space="preserve">
+    <value>Technologie</value>
+  </data>
+  <data name="resource_common_tech_table_experience_header" xml:space="preserve">
+    <value>Zkušenost</value>
+  </data>
+  <data name="resource_common_tech_table_notes_header" xml:space="preserve">
+    <value>Poznámky</value>
+  </data>
+  
+  <data name="resource_common_tech_table_operating_systems_description" xml:space="preserve">
+  <value>Windows pro každodenní práci; Linux zkoumám ze zvědavosti.</value>
+</data>
+  <data name="resource_common_tech_table_analysis_design_description" xml:space="preserve">
+  <value>Návrh nových funkcí a analýza problémů i defektů.</value>
+</data>
+  <data name="resource_common_tech_table_project_control_description" xml:space="preserve">
+  <value>Projektové a kolaborační nástroje podporující úspěšné dodávky.</value>
+</data>
+  <data name="resource_common_tech_table_code_flow_description" xml:space="preserve">
+  <value>Začínal jsem se SVN, poté přešel na Git. Na projektech využívám CI/CD pipelines v Azure DevOps.</value>
+</data>
+  <data name="resource_common_tech_table_databases_description" xml:space="preserve">
+  <value>Databáze, se kterými pracuji—nejčastěji MongoDB a SQL Server (Entity Framework).</value>
+</data>
+  <data name="resource_common_tech_table_programming_languages_description" xml:space="preserve">
+  <value>C# je už od začátku můj nejoblíbenější jazyk. Pracoval jsem také s Javou a Pythonem a několik let jsem zlepšoval privátní servery World of Warcraft.</value>
+</data>
+  <data name="resource_common_tech_table_web_technologies_description" xml:space="preserve">
+  <value>Mám zkušenosti s řadou webových technologií v ekosystému .NET. Píšu i čistý JavaScript a dávám přednost SASS před klasickým CSS.</value>
+</data>
+  <data name="resource_common_tech_table_mobile_technologies_description" xml:space="preserve">
+  <value>Věnoval jsem se i mobilnímu vývoji v rámci .NET.</value>
+</data>
+  <data name="resource_common_tech_table_game_technologies_description" xml:space="preserve">
+  <value>Získal jsem bohaté zkušenosti s vývojem her—na začátku zejména s emulátorem World of Warcraft; nyní jsem nadšeným uživatelem Godotu.</value>
+</data>
+  <data name="resource_common_tech_table_other_description" xml:space="preserve">
+  <value>Znám i „starší“ technologie jako WPF a Windows Forms. Zvědavost mě dovedla k IoT a ve spojení s vývojem her také k návrhu AI postav.</value>
+</data>
+  <data name="resource_common_tech_table_currently_learning_description" xml:space="preserve">
+  <value>Stále se učím.</value>
+</data>
+</root>

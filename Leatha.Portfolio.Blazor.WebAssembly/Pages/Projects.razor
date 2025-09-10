@@ -1,0 +1,58 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> ResourceLocale
+
+@page "/projects"
+
+<div style="position: fixed; display: flex; width: 100%;">
+    <a href="/" class="main-logo">DH</a>
+    <div class="section-wrap">
+        <section>
+            @*             <a href="/projects">Projects</a>
+            <a href="/author">Author</a> *@
+            @* <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">All projects</p> *@
+        </section>
+    </div>
+    <LanguageSwitcher/>
+</div>
+
+<div>
+    <div class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            @* <h2 class="section-title">What I Build</h2> *@
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">All projects</p>
+
+            <div class="categories">
+                @foreach (var project in _projectItems.OrderByDescending(i => i.Id))
+                {
+                    <article class="project cat-row">
+                        <div class="cat-icon">
+                            <img src="@project.ImagePath" alt="@project.AltText" style="max-width: 250px;" />
+
+                        </div>
+                        <div class="cat-content">
+                            <h3>@project.Name</h3>
+                            <div>@((MarkupString)project.Description.GetTranslation())</div>
+                            @if (project.Tags is { Length: > 0 })
+                            {
+                                <div class="card-tags mt-3">
+                                    @foreach (var tag in project.Tags)
+                                    {
+                                        <span class="tag">@tag</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<LeathaFooter />
+
+@code
+{
+    private readonly IReadOnlyList<Project> _projectItems = ProjectsData.All;
+}

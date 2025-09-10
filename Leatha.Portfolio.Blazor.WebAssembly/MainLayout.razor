@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+@using Leatha.Portfolio.Blazor.WebAssembly.Services
+@implements IDisposable
+@inject LanguageService LanguageService
+
+<div class="page">
+    
+    <!-- @Key makes re-render children when this changes. -->
+    <main @key="LanguageService.Current">
+        @Body
+    </main>
+
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        LanguageService.Changed += OnLangChanged;
+    }
+
+    private async void OnLangChanged()
+    {
+        // Re-render layout.
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+        => LanguageService.Changed -= OnLangChanged;
+}
