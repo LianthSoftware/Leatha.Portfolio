@@ -1,9 +1,11 @@
 ﻿@inherits LayoutComponentBase
 @using Leatha.Portfolio.Blazor.WebAssembly.Services
 @implements IDisposable
+@inject NavigationManager Navigation
 @inject LanguageService LanguageService
+@inject IJSRuntime JavaScriptRuntime
 
-<div class="page">
+@* <div class="page">
     
     <!-- @Key makes re-render children when this changes. -->
     <main @key="LanguageService.Current">
@@ -11,11 +13,104 @@
     </main>
 
 </div>
+ *@
+<div class="app-shell">
+    <!-- fixed / sticky header -->
+    <header class="app-header">
+        <div class="header-inner">
+            @* <a href="/" class="main-logo">DH</a> *@
+            <a class="main-logo"
+               href="/"
+               @onclick='() => OnNavigationClick("")'
+               @onclick:preventDefault
+               @onclick:stopPropagation>
+                DH
+            </a>
+
+            <!-- center -->
+            <div class="header-center">
+                <div class="top-nav-wrap">
+                    <nav class="top-nav" aria-label="Primary">
+@*                         <a class="nav-link" href="/">
+                            <span><img src="img/icon_home_30.png" alt="Home Icon" /> Home</span>
+                            <span><img src="img/icon_home_30.png" alt="Home Icon" /></span>
+                        </a> *@
+                        <a class="nav-link"
+                           href="/"
+                            @onclick='() => OnNavigationClick("")'
+                            @onclick:preventDefault
+                            @onclick:stopPropagation>
+                            <span><img src="img/icon_home_30.png" alt="Home Icon" /> Home</span>
+                            <span><img src="img/icon_home_30.png" alt="Home Icon" /></span>
+                        </a>
+                        <a class="nav-link"
+                           href="/projects"
+                           @onclick='() => OnNavigationClick("projects")'
+                           @onclick:preventDefault
+                           @onclick:stopPropagation>
+                            <span><img src="img/icon_project_30.png" alt="Project Icon" /> Projects</span>
+                            <span><img src="img/icon_project_30.png" alt="Project Icon" /></span>
+                        </a>
+                        <a class="nav-link"
+                           href="/projects#hobby"
+                           @onclick="OnHobbyClick"
+                           @onclick:preventDefault
+                           @onclick:stopPropagation>
+                            <span><img src="img/icon_hobby_30.png" alt="Hobby Icon" /> Hobby Projects</span>
+                            <span><img src="img/icon_hobby_30.png" alt="Hobby Icon" /></span>
+                        </a>
+@*                         <a class="nav-link" href="/author">
+                            <span><img src="img/icon_author_30.png" alt="Author Icon" /> Author</span>
+                            <span><img src="img/icon_author_30.png" alt="Author Icon" /></span>
+                        </a> *@
+                        <a class="nav-link"
+                           href="/author"
+                            @onclick='() => OnNavigationClick("author")'
+                            @onclick:preventDefault
+                            @onclick:stopPropagation>
+                            <span><img src="img/icon_author_30.png" alt="Author Icon" /> Author</span>
+                            <span><img src="img/icon_author_30.png" alt="Author Icon" /></span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <LanguageSwitcher />
+        </div>
+    </header>
+
+    <!-- scrollable content area -->
+    <main class="app-main" @key="LanguageService.Current" @ref="_mainRef">
+        @Body
+    </main>
+</div>
 
 @code {
+    private ElementReference _mainRef;
+    private bool _resetScrollNeeded;
+
     protected override void OnInitialized()
     {
+        Navigation.LocationChanged += OnLocationChanged;
         LanguageService.Changed += OnLangChanged;
+        _resetScrollNeeded = true; // reset once on first load
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        var uri = new Uri(e.Location);
+
+        // only reset if there's no #fragment
+        _resetScrollNeeded = string.IsNullOrEmpty(uri.Fragment);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_resetScrollNeeded)
+        {
+            _resetScrollNeeded = false;
+            await JavaScriptRuntime.InvokeVoidAsync("scrollMainToTop");
+        }
     }
 
     private async void OnLangChanged()
@@ -24,6 +119,45 @@
         await InvokeAsync(StateHasChanged);
     }
 
+    private async Task OnHobbyClick()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/projects", StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page: set hash without navigation and scroll
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", "projects#hobby");
+            await JavaScriptRuntime.InvokeVoidAsync("scrollToElementByCss", "hobby", "--header-h");
+        }
+        else
+        {
+            // Cross-page: navigate with fragment; Projects.razor will handle the scroll after render
+            Navigation.NavigateTo("/projects#hobby", forceLoad: false);
+        }
+    }
+
+    private async Task OnNavigationClick(string key)
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/" + key, StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page → just scroll to top
+            await JavaScriptRuntime.InvokeVoidAsync("scrollMainToTop");
+            // optional: clear hash if present
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", key);
+        }
+        else
+        {
+            // Different page → normal navigation
+            Navigation.NavigateTo("/" + key);
+        }
+    }
+
     public void Dispose()
-        => LanguageService.Changed -= OnLangChanged;
+    {
+        LanguageService.Changed -= OnLangChanged;
+        Navigation.LocationChanged -= OnLocationChanged;
+    }
+
 }

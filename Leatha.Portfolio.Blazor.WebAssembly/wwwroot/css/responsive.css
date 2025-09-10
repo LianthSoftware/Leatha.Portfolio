@@ -13,12 +13,18 @@
     max-width: 1100px;
     margin: 0 auto;
   }
+  .masonry-hover .masonry-item:hover {
+    scale: 1.15;
+  }
 }
 /* Large desktops down (≤1200px) */
 @media (max-width: 1200px) {
   .section-wrap {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+  }
+  .masonry-hover .masonry-item:hover {
+    scale: 1.15;
   }
 }
 /* Desktops/Tablets (≤992px) */
@@ -91,6 +97,9 @@
     width: 100%;
     text-align: left; /* or center if you prefer */
   }
+  .masonry-hover .masonry-item:hover {
+    scale: 1.1;
+  }
 }
 /* Tablets/large phones (≤768px) */
 @media (max-width: 768px) {
@@ -133,11 +142,50 @@
     flex-wrap: wrap; /* allow wrapping to multiple rows */
     margin-top: 1rem;
   }
+  /*.nav-link {
+      span:first-child {
+          display: none;
+      }
+
+      span:last-child {
+          display: initial;
+      }
+  }*/
+}
+/* Special case for nav links. */
+@media (max-width: 900px) {
+  .nav-link span:first-child {
+    display: none;
+  }
+  .nav-link span:last-child {
+    display: initial;
+  }
 }
 /* Small phones (≤576px) */
 @media (max-width: 576px) {
   .categories .cat-row .cat-icon {
     /*width: 180px;*/
+  }
+  .header-inner {
+    grid-template-columns: auto 1fr auto;
+    padding: 0.75rem 0.75rem;
+  }
+  .app-main::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .app-main::-webkit-scrollbar-thumb {
+    border-width: 2px;
+  }
+  :root {
+    --header-h: 100px;
+  }
+  .header-inner {
+    padding: 0.6rem 0.75rem;
+  }
+  .main-logo {
+    margin: 0;
+    margin-left: 0.5rem;
   }
 }
 /* Ultra-small devices (≤360px) */

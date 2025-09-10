@@ -2,7 +2,7 @@
 
 namespace Leatha.Portfolio.Blazor.WebAssembly.Models
 {
-    public sealed class Project
+    public class Project
     {
         public int Id { get; set; }
 
@@ -49,6 +49,11 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Models
 
             return "PRESENT";
         }
+    }
+
+    public sealed class HobbyProject : Project
+    {
+        public List<string> Screenshots { get; set; } = [];
     }
 
     public sealed class ProjectDescription

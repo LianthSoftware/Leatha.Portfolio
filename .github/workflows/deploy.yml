@@ -1,0 +1,51 @@
+name: Build & Deploy Blazor WASM to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]   # or master if your repo uses master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PROJECT_PATH: Leatha.Portfolio.Blazor.WebAssembly
+  PUBLISH_DIR: publish
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Restore
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: dotnet restore
+
+      - name: Publish (Release)
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: dotnet publish -c Release -o ${{ github.workspace }}/${{ env.PUBLISH_DIR }}
+
+      - name: Prepare static site (wwwroot -> site root)
+        run: |
+          mkdir site
+          cp -r "${{ env.PUBLISH_DIR }}/wwwroot/"* site/
+          # Prevent Jekyll from interfering with _framework folder
+          touch site/.nojekyll
+          # Set custom domain for Pages (creates/updates CNAME)
+          echo "www.leatha.cz" > site/CNAME
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site
+          publish_branch: gh-pages
+          force_orphan: true

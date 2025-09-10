@@ -1,0 +1,127 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> ResourceLocale
+
+@page "/author"
+
+<div>
+    <div class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Author</p>
+            
+            <p class="m-2">When I have free time, I choose to play some of the following games:</p>
+            <ul>
+                <li>
+                    <p class="m-2">
+                        Strategic Games (Desperados 3, Shadow Tactics, Caesar 3, Port Royale)
+                    </p>
+                </li>
+                <li>
+                    <p class="m-2">
+                        MMORPG Games & RPG (World of Warcraft, Assassin's Creed)
+                    </p>
+                </li>
+                <li>
+                    <p class="m-2">
+                        Action Games (Call of Duty)
+                    </p>
+                </li>
+                <li>
+                    <p class="m-2">
+                        Card Games (Hearthstone - avid Battlegrounds player 😊)
+                    </p>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Photos</p>
+
+            <div class="masonry masonry-hover">
+                @foreach (var photo in _photoItems)
+                {
+                    <article class="masonry-item">
+                        <img src="@photo.ImagePath" alt="Author Photo" loading="lazy"/>
+                    </article>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+@code {
+
+    class Photo
+    {
+        public string ImagePath { get; init; } = null!;
+
+        public string Description { get; init; } = null!;
+    }
+
+    private readonly IReadOnlyList<Photo> _photoItems = [
+        new Photo
+        {
+            ImagePath = "img/Author_photo_001.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_002.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_003.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_004.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_005.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_006.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_007.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_008.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_009.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_011.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_010.jpg",
+            Description = "#TODO"
+        },
+        new Photo
+        {
+            ImagePath = "img/Author_photo_012.jpg",
+            Description = "#TODO"
+        },
+    ];
+}
+
+<!-- FOOTER -->
+<LeathaFooter />

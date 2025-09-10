@@ -1,33 +1,62 @@
 ﻿@using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> ResourceLocale
+@inject IJSRuntime JavaScriptRuntime
+@inject NavigationManager Navigation
 
 @page "/projects"
 
-<div style="position: fixed; display: flex; width: 100%;">
+@* <div style="position: fixed; display: flex; width: 100%;">
     <a href="/" class="main-logo">DH</a>
     <div class="section-wrap">
         <section>
-            @*             <a href="/projects">Projects</a>
-            <a href="/author">Author</a> *@
-            @* <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">All projects</p> *@
         </section>
     </div>
     <LanguageSwitcher/>
-</div>
+</div> *@
 
 <div>
     <div class="section-wrap" style="padding-top: 2rem;">
         <section>
             @* <h2 class="section-title">What I Build</h2> *@
-            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">All projects</p>
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Contracted projects</p>
 
+            @* <div class="categories">
+                @foreach (var project in _projectItems.OrderByDescending(i => i.Id))
+                {
+                    <article class="project cat-row">
+                        <div class="cat-icon">
+                            <img class="project-logo" src="@project.ImagePath" alt="@project.AltText" style="max-width: 150px;" />
+
+                        </div>
+                        <div class="cat-content">
+                            <h3>@project.Name</h3>
+                            <div>@((MarkupString)project.Description.GetTranslation())</div>
+                            @if (project.Tags is { Length: > 0 })
+                            {
+                                <div class="card-tags mt-3">
+                                    @foreach (var tag in project.Tags)
+                                    {
+                                        <span class="tag">@tag</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </article>
+                }
+            </div> *@
+            
             <div class="categories">
                 @foreach (var project in _projectItems.OrderByDescending(i => i.Id))
                 {
                     <article class="project cat-row">
                         <div class="cat-icon">
-                            <img src="@project.ImagePath" alt="@project.AltText" style="max-width: 250px;" />
-
+                            <figure class="logo-tile" aria-hidden="true">
+                                <img class="project-logo"
+                                     src="@project.ImagePath"
+                                     alt="@project.ImageAlt"
+                                     loading="lazy"
+                                     decoding="async" />
+                            </figure>
                         </div>
                         <div class="cat-content">
                             <h3>@project.Name</h3>
@@ -49,10 +78,160 @@
     </div>
 </div>
 
+<div>
+    <div id="hobby" class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            @* <h2 class="section-title">What I Build</h2> *@
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Hobby projects</p>
+
+            <div class="categories">
+                @foreach (var project in _hobbyProjectItems.OrderBy(i => i.Id))
+                {
+                    <article class="project cat-row" style="margin-top: 3rem;">
+                        <div class="cat-icon">
+                            <img src="@project.ImagePath" alt="@project.AltText" style="max-width: 150px;" />
+
+                        </div>
+                        <div class="cat-content">
+                            <h3>@project.Name</h3>
+                            <div>@((MarkupString)project.Description.GetTranslation())</div>
+                            @if (project.Tags is { Length: > 0 })
+                            {
+                                <div class="card-tags mt-3">
+                                    @foreach (var tag in project.Tags)
+                                    {
+                                        <span class="tag">@tag</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </article>
+
+                    <article class="project hobby-row">
+                        <div class="cat-content">
+                            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 2rem; font-size: 1.25rem;">Screenshots</p>
+                            <div class="masonry column-3">
+                                @for (var n = 0; n < project.Screenshots.Count; ++n)
+                                {
+                                    var index = n;
+                                    <article class="masonry-item">
+                                        <img src="@project.Screenshots[n]" alt="Game Screenshot" loading="lazy" @onclick="() => OpenModal(project.Id, index)"/>
+                                    </article>
+                                }
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+@if (_isModalOpen)
+{
+    <div class="modal-overlay" @onclick="CloseModal">
+        <div class="modal-content"
+             @onclick:stopPropagation="true"
+             tabindex="0"
+             role="dialog"
+             aria-modal="true"
+             @ref="_modalRef"
+             @onkeydown="OnModalKeyDown">
+
+            <button class="nav-btn left" @onclick="PrevImage" aria-label="Previous">&#10094;</button>
+
+            <img src="@Images[_projectId][_currentIndex]" class="modal-image" alt="Screenshot" />
+
+            <button class="nav-btn right" @onclick="NextImage" aria-label="Next">&#10095;</button>
+            <button class="close-btn" @onclick="CloseModal" aria-label="Close">&times;</button>
+        </div>
+    </div>
+}
+
 <!-- FOOTER -->
 <LeathaFooter />
 
 @code
 {
     private readonly IReadOnlyList<Project> _projectItems = ProjectsData.All;
+    private readonly IReadOnlyList<HobbyProject> _hobbyProjectItems = ProjectsData.HobbyProjects;
+
+    private bool _isModalOpen;
+    private int _currentIndex;
+    private int _projectId;
+
+    private ElementReference _modalRef;
+    private string? _pendingFragment;
+
+    public Dictionary<int, List<string>> Images =
+        ProjectsData.HobbyProjects.ToDictionary(i => i.Id, n => n.Screenshots);
+
+    protected override void OnInitialized()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        if (!string.IsNullOrEmpty(uri.Fragment))
+            _pendingFragment = uri.Fragment.TrimStart('#');
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // When modal is open, keep focus on it so it receives key events
+        if (_isModalOpen)
+        {
+            await _modalRef.FocusAsync();
+        }
+
+        Console.WriteLine("Pending Fragment = " + _pendingFragment);
+        if (!string.IsNullOrEmpty(_pendingFragment))
+        {
+            // Example: offset for fixed header (80px)
+            // await JavaScriptRuntime.InvokeVoidAsync("scrollToElement", _pendingFragment, 80);
+            await JavaScriptRuntime.InvokeVoidAsync("scrollToElementByCss", _pendingFragment, "--header-h");
+            _pendingFragment = null;
+        }
+    }
+
+    private async Task OpenModal(int projectId, int index)
+    {
+        _projectId = projectId;
+        _currentIndex = index;
+        _isModalOpen = true;
+
+        await JavaScriptRuntime.InvokeVoidAsync("setHeaderIndex", 0);
+        StateHasChanged(); // ensure modal is rendered before focusing
+    }
+
+    private async Task CloseModal()
+    {
+        _isModalOpen = false;
+        await JavaScriptRuntime.InvokeVoidAsync("setHeaderIndex", 2000);
+    }
+
+    private void NextImage()
+    {
+        _currentIndex = (_currentIndex + 1) % Images[_projectId].Count;
+    }
+
+    private void PrevImage()
+    {
+        _currentIndex = (_currentIndex - 1 + Images[_projectId].Count) % Images[_projectId].Count;
+    }
+
+    // Keyboard support: ESC closes, arrows navigate
+    private Task OnModalKeyDown(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "Escape":
+                return CloseModal();
+            case "ArrowRight":
+                NextImage();
+                break;
+            case "ArrowLeft":
+                PrevImage();
+                break;
+        }
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 }

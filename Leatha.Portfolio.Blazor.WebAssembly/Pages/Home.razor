@@ -1,5 +1,7 @@
 ﻿@using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> ResourceLocale
+@inject NavigationManager Navigation
+@inject IJSRuntime JavaScriptRuntime
 
 @page "/"
 @* @page "/cs"
@@ -7,17 +9,14 @@
 
 <PageTitle>David Hruška - Portfolio</PageTitle>
 
-<div style="position: fixed; display: flex; width: 100%;">
+@* <div style="position: fixed; display: flex; width: 100%;">
     <a href="/" class="main-logo">DH</a>
-    @* <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem; margin-left: auto; margin-right: auto;">All projects</p> *@
     <div class="section-wrap">
         <section>
-@*             <a href="/projects">Projects</a>
-            <a href="/author">Author</a> *@
         </section>
     </div>
     <LanguageSwitcher/>
-</div>
+</div> *@
 
 @* <LanguageSwitcher />
 <a href="/" class="main-logo">DH</a> *@
@@ -38,8 +37,16 @@
         </div>
 
         <div class="actions">
-            <a class="btn btn-primary" href="CV_David_Hruska.pdf" download>@ResourceLocale["resource_common_download_button"]</a>
-            <a class="btn btn-ghost" href="#contact">@ResourceLocale["resource_common_contact_button"]</a>
+            @* <a class="btn btn-primary" href="CV_David_Hruska.pdf" download>@ResourceLocale["resource_common_download_button"]</a> *@
+            <a class="btn btn-primary" href="/curriculum-vitae">@ResourceLocale["resource_common_download_button"]</a>
+            @* <a class="btn btn-ghost" href="#contact">@ResourceLocale["resource_common_contact_button"]</a> *@
+            <a class="btn btn-ghost"
+               href="#contact"
+               @onclick="OnContactsClick"
+               @onclick:preventDefault
+               @onclick:stopPropagation>
+                @ResourceLocale["resource_common_contact_button"]
+            </a>
         </div>
     </section>
 
@@ -72,6 +79,23 @@
 
         return age;
     }
+
+    private async Task OnContactsClick()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/", StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page: set hash without navigation and scroll
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", "#contact");
+            await JavaScriptRuntime.InvokeVoidAsync("scrollToElementByCss", "contact", "--header-h");
+        }
+        else
+        {
+            // Cross-page: navigate with fragment; Projects.razor will handle the scroll after render
+            Navigation.NavigateTo("/#contact", forceLoad: false);
+        }
+    }
 }
 
 <div class="section-wrap">
@@ -81,6 +105,21 @@
         <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_2_label"]</p>
         <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_3_label"]</p>
         <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_4_label"]</p>
+        
+        <div class="actions d-flex" style="margin-top: 4rem;">
+            @*             <a class="btn btn-ghost ms-auto me-auto" href="/projects">
+                @ResourceLocale["resource_common_show_more_button"]<br />
+                <span style="color: #6c8786; font-size: 0.75rem;">@string.Format(ResourceLocale["resource_common_show_more_total_label"], _projectItems.Count)</span>
+            </a> *@
+            
+            <a class="btn btn-ghost ms-auto me-auto"
+               href="/author"
+               @onclick='() => OnNavigationClick("author")'
+               @onclick:preventDefault
+               @onclick:stopPropagation>
+                @ResourceLocale["resource_common_show_more_button"]
+            </a>
+        </div>
     </section>
 </div>
 
@@ -102,7 +141,16 @@
         </div>
         
         <div class="actions d-flex" style="margin-top: 4rem;">
-            <a class="btn btn-ghost ms-auto me-auto" href="/projects">
+@*             <a class="btn btn-ghost ms-auto me-auto" href="/projects">
+                @ResourceLocale["resource_common_show_more_button"]<br />
+                <span style="color: #6c8786; font-size: 0.75rem;">@string.Format(ResourceLocale["resource_common_show_more_total_label"], _projectItems.Count)</span>
+            </a> *@
+            
+            <a class="btn btn-ghost ms-auto me-auto"
+               href="/projects"
+               @onclick="OnProjectsClick"
+               @onclick:preventDefault
+               @onclick:stopPropagation>
                 @ResourceLocale["resource_common_show_more_button"]<br />
                 <span style="color: #6c8786; font-size: 0.75rem;">@string.Format(ResourceLocale["resource_common_show_more_total_label"], _projectItems.Count)</span>
             </a>
@@ -113,6 +161,42 @@
 @code
 {
     private readonly IReadOnlyList<Project> _projectItems = ProjectsData.All;
+
+    private async Task OnProjectsClick()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/projects", StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page → just scroll to top
+            await JavaScriptRuntime.InvokeVoidAsync("scrollMainToTop");
+            // optional: clear hash if present
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", "projects");
+        }
+        else
+        {
+            // Different page → normal navigation
+            Navigation.NavigateTo("/projects");
+        }
+    }
+
+    private async Task OnNavigationClick(string key)
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/" + key, StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page → just scroll to top
+            await JavaScriptRuntime.InvokeVoidAsync("scrollMainToTop");
+            // optional: clear hash if present
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", key);
+        }
+        else
+        {
+            // Different page → normal navigation
+            Navigation.NavigateTo("/" + key);
+        }
+    }
 }
 
 

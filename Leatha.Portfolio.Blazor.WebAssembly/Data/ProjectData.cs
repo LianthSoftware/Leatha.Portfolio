@@ -4,6 +4,132 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
 {
     public static class ProjectsData
     {
+        public static readonly IReadOnlyList<HobbyProject> HobbyProjects = new List<HobbyProject>
+        {
+            new ()
+            {
+                Id = 100,
+                Name = "Laser Tag Arena",
+                Description = new ProjectDescription
+                {
+                    EnglishTranslation = """
+                                         <p class="project-description">One of hobby projects focuses on real-time single and multi player game over SignalR connections. Crafted with care, players can choose maps and gaming style to conquer other players and teams.</p>
+                                         <ul class="project-description-list">
+                                             <li><span>Single and Multi player.</span></li>
+                                             <li><span>Different game style and map settings.</span></li>
+                                             <li><span>Modern UI.</span></li>
+                                             <li><span>Planned possibility to host own LAN servers.</span></li>
+                                             <li><span>Planned achievements.</span></li>
+                                         </ul>
+                                         """,
+                    CzechTranslation = ""
+                },
+                YearStart = 2021,
+                YearEnd = null, // present
+                ImagePath = "img/godot_logo.png",
+                ImageAlt = "Godot Logo",
+                Tags = ["C#", ".NET", "Godot", "Gaming", "Multi-player", "SignalR"],
+                Screenshots = [
+                    "img/screenshots/laser_tag_game_screenshot_001.png",
+                    "img/screenshots/laser_tag_game_screenshot_002.png",
+                    "img/screenshots/laser_tag_game_screenshot_003.png",
+                    "img/screenshots/laser_tag_game_screenshot_004.png",
+                    "img/screenshots/laser_tag_game_screenshot_005.png",
+                    "img/screenshots/laser_tag_game_screenshot_006.png",
+                    "img/screenshots/laser_tag_game_screenshot_007.png",
+                    "img/screenshots/laser_tag_game_screenshot_008.png",
+                    "img/screenshots/laser_tag_game_screenshot_009.png",
+                ]
+            },
+
+            new ()
+            {
+                Id = 101,
+                Name = "Magic Cards Game",
+                Description = new ProjectDescription
+                {
+                    EnglishTranslation = """
+                                         <p class="project-description">One of hobby projects focuses on real-time single and multi player game over SignalR connections. Crafted with care, players can choose maps and gaming style to conquer other players and teams.</p>
+                                         <ul class="project-description-list">
+                                             <li><span>Single and Multi player.</span></li>
+                                             <li><span>Different game style and map settings.</span></li>
+                                             <li><span>Modern UI.</span></li>
+                                             <li><span>Planned possibility to host own LAN servers.</span></li>
+                                             <li><span>Planned achievements.</span></li>
+                                         </ul>
+                                         """,
+                    CzechTranslation = ""
+                },
+                YearStart = 2021,
+                YearEnd = null, // present
+                ImagePath = "img/godot_logo.png",
+                ImageAlt = "Godot Logo",
+                Tags = ["C#", ".NET", "Godot", "Gaming", "Multi-player", "SignalR"],
+                Screenshots = [
+                    "img/screenshots/magic_cards_game_screenshot_001.png",
+                    "img/screenshots/magic_cards_game_screenshot_002.png",
+                    "img/screenshots/magic_cards_game_screenshot_003.png",
+                    "img/screenshots/magic_cards_game_screenshot_004.png",
+                    "img/screenshots/magic_cards_game_screenshot_005.png",
+                    "img/screenshots/magic_cards_game_screenshot_006.png",
+                    "img/screenshots/magic_cards_game_screenshot_007.png",
+                    "img/screenshots/magic_cards_game_screenshot_008.png",
+                    "img/screenshots/magic_cards_game_screenshot_009.png",
+                ]
+            },
+
+            new ()
+            {
+                Id = 103,
+                Name = "Travian Warcraft Game",
+                Description = new ProjectDescription
+                {
+                    EnglishTranslation = """
+                                         <p class="project-description">One of hobby projects focuses on real-time single and multi player game over SignalR connections. Crafted with care, players can choose maps and gaming style to conquer other players and teams.</p>
+                                         <ul class="project-description-list">
+                                             <li><span>Single and Multi player.</span></li>
+                                             <li><span>Different game style and map settings.</span></li>
+                                             <li><span>Modern UI.</span></li>
+                                             <li><span>Planned possibility to host own LAN servers.</span></li>
+                                             <li><span>Planned achievements.</span></li>
+                                         </ul>
+                                         """,
+                    CzechTranslation = ""
+                },
+                YearStart = 2021,
+                YearEnd = null, // present
+                ImagePath = "img/godot_logo.png",
+                ImageAlt = "Godot Logo",
+                Tags = ["C#", ".NET", "Godot", "Gaming", "Multi-player", "SignalR"],
+                Screenshots = [
+                    "img/screenshots/travian_warcraft_game_screenshot_003.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_002.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_003.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_004.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_005.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_006.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_007.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_008.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_009.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_010.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_011.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_012.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_013.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_014.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_015.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_016.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_017.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_018.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_019.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_020.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_021.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_022.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_023.png",
+                    "img/screenshots/travian_warcraft_game_screenshot_024.png",
+                ]
+            },
+        };
+
         public static readonly IReadOnlyList<Project> All = new List<Project>
         {
             new ()
@@ -31,7 +157,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2021,
                 YearEnd = null, // present
-                ImagePath = "img/globus_logo_2.png",
+                //ImagePath = "img/globus_logo_2.png",
+                ImagePath = "img/logos/globus_logo_new_001.png",
                 ImageAlt = "Globus Logo",
                 Tags = ["C#", ".NET", "Rest API", "MSSQL", "Windows Services", "MongoDB", "Docker", "Architecture", "Analysis", "Authorization", "Job Engine"]
             },
@@ -62,6 +189,7 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 YearStart = 2021,
                 YearEnd = null, // present
                 ImagePath = "img/peyvee_logo_1.png",
+                //ImagePath = "img/logos/globus_logo_new_001.png",
                 ImageAlt = "Peyvee Logo",
                 Tags = ["C#", ".NET", "Xamarin", "RealmDB", "Mobile", "Android"]
             },
@@ -91,7 +219,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2019,
                 YearEnd = 2021,
-                ImagePath = "img/kodys_logo_1.png",
+                //ImagePath = "img/kodys_logo_1.png",
+                ImagePath = "img/logos/kodys_logo_new_001.svg",
                 ImageAlt = "KODYS Logo",
                 Tags = [".NET", "C#", "Rest API", "MSSQL", "SQLite", "ASP.NET MVC", "IoT", "Automation"]
             },
@@ -121,7 +250,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2019,
                 YearEnd = 2019,
-                ImagePath = "img/kendaxa_logo_2.png",
+                //ImagePath = "img/kendaxa_logo_2.png",
+                ImagePath = "img/logos/kendaxa_logo_new_001.png",
                 ImageAlt = "KENDAXA Logo",
                 Tags = [".NET", "C#", "Tools", "AI", "Legal Documents", "Machine Learning"]
             },
@@ -151,7 +281,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2017,
                 YearEnd = 2019,
-                ImagePath = "img/penzijni_spolecnost_ceske_pojistovny_logo_2.jpg",
+                //ImagePath = "img/penzijni_spolecnost_ceske_pojistovny_logo_2.jpg",
+                ImagePath = "img/logos/generali_logo_new_001.svg",
                 ImageAlt = "PSČP Logo",
                 Tags = [".NET", "C#", "WPF", "AML", "Tools", "Internal System" ]
             },
@@ -181,7 +312,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2017,
                 YearEnd = 2017,
-                ImagePath = "img/ceska_sporitelna_logo_1.png",
+                //ImagePath = "img/ceska_sporitelna_logo_1.png",
+                ImagePath = "img/logos/ceska_sporitelna_logo_new_001.png",
                 ImageAlt = "ČS Logo",
                 Tags = [".NET", "C#", "Web API", "ASP.NET MVC", "HTML", "CSS"]
             },
@@ -213,7 +345,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2015,
                 YearEnd = 2016,
-                ImagePath = "img/ceska_sporitelna_logo_1.png",
+                //ImagePath = "img/ceska_sporitelna_logo_1.png",
+                ImagePath = "img/logos/ceska_pojistovna_logo_new_001.png",
                 ImageAlt = "ČP Logo",
                 Tags = [".NET", "C#", "MSSQL", "Analysis", "Architecture", "Metro UI", "Windows 8.1", "Store Apps", "Universal Apps", "Job Engine"]
             },
@@ -244,6 +377,7 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 YearStart = 2014,
                 YearEnd = 2015,
                 ImagePath = "img/ceska_sporitelna_logo_1.png",
+                //ImagePath = "img/ceska_sporitelna_logo_1.png",
                 ImageAlt = "Xacti Logo",
                 Tags = [".NET", "C#", "Web Application", "HTML", "CSS"]
             },
@@ -273,7 +407,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2014,
                 YearEnd = 2014,
-                ImagePath = "img/ceska_sporitelna_logo_1.png",
+                //ImagePath = "img/ceska_sporitelna_logo_1.png",
+                ImagePath = "img/logos/unicorn_logo_new_001.png",
                 ImageAlt = "HSI Logo",
                 Tags = [".NET", "C#", "Web Application", "HTML", "CSS", "Windows Forms"]
             },
@@ -305,7 +440,8 @@ namespace Leatha.Portfolio.Blazor.WebAssembly.Data
                 },
                 YearStart = 2011,
                 YearEnd = 2014,
-                ImagePath = "img/ceska_sporitelna_logo_1.png",
+                //ImagePath = "img/ceska_sporitelna_logo_1.png",
+                ImagePath = "img/logos/world_of_warcraft_logo_new_001.svg",
                 ImageAlt = "WoW Logo",
                 Tags = ["C/C++", "MySQL", "LUA", "Gaming"]
             }
