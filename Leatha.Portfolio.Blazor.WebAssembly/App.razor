@@ -1,4 +1,7 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@inject NavigationManager Navigation
+@inject IJSRuntime JavaScriptRuntime
+
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
 @*         <FocusOnNavigate RouteData="@routeData" /> *@
@@ -6,7 +9,66 @@
     <NotFound>
         <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
+            <div class="section-wrap" style="min-height: calc(100% - var(--header-h) - 10px); display: flex; justify-content: center; padding: 0;">
+                <section class="mt-auto mb-auto w-100" style="padding: 3rem;
+    border-radius: 18px;
+    background: var(--card-bg, radial-gradient(1200px 600px at 50% -240px, #14363a 0%, #0f2226 45%, #0b181b 100%));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: var(--shadow, 0 12px 36px rgba(0, 0, 0, 0.45));">
+                    
+                    <p style="font-size: 8rem;
+    text-shadow: 3px 10px 20px black;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    color: #6d9592;">404</p>
+
+                    <p class="subtitle" style="color: #bbbbbb; text-align: center; margin-bottom: 1rem; font-size: 1.2rem;">
+                        We searched and searched, but could not find any content to serve 😢
+                    </p>
+                    <p class="subtitle" style="color: #bbbbbb;text-align: center;margin-bottom: 1rem;font-size: 1.2rem;">
+                        Maybe, would you like to see my fabulous <span style="
+                        text-transform: uppercase;
+                        color: #6d9592;
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                    ">home</span> page?
+                    </p>
+
+                    <div class="actions d-flex" style="margin-top: 4rem;">
+                        <a class="btn btn-ghost ms-auto me-auto"
+                           href="/"
+                           @onclick='() => OnNavigationClick("")'
+                           @onclick:preventDefault
+                           @onclick:stopPropagation>
+                            <span><img src="img/icon_home_30.png" alt="Home Icon" style="margin-right: 1rem; filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);"/>
+                                Home</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+            
+            <LeathaFooter />
         </LayoutView>
     </NotFound>
 </Router>
+
+@code {
+    private async Task OnNavigationClick(string key)
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/" + key, StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page → just scroll to top
+            await JavaScriptRuntime.InvokeVoidAsync("scrollMainToTop");
+            // optional: clear hash if present
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", key);
+        }
+        else
+        {
+            // Different page → normal navigation
+            Navigation.NavigateTo("/" + key);
+        }
+    }
+}
