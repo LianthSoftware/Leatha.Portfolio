@@ -41,6 +41,7 @@ jobs:
           touch site/.nojekyll
           # Set custom domain for Pages (creates/updates CNAME)
           echo "www.leatha.cz" > site/CNAME
+          cp site/index.html site/404.html
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
