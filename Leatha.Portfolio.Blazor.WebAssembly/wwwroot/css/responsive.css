@@ -188,6 +188,18 @@
     margin-left: 0.5rem;
   }
 }
+/* Special Case */
+@media (max-width: 500px) {
+  .language-dropdown button {
+    padding: 0.25rem;
+  }
+  .top-nav {
+    gap: 0.25rem;
+  }
+  .top-nav .nav-link {
+    padding: 0.25rem;
+  }
+}
 /* Ultra-small devices (≤360px) */
 @media (max-width: 360px) {
   .site-footer .footer-inner .contact {
