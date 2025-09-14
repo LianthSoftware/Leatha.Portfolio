@@ -1310,7 +1310,7 @@ body {
     box-shadow: none !important;
     border-radius: 0 !important;
     border: 0 !important; /* avoids half-borders at breaks */
-    padding: 0 !important; /* optionally tighten for print */
+    /*padding: 0 !important;*/ /* optionally tighten for print */
   }
   /* Keep headings with the first block of content */
   .card h2, .card h3, .subtitle {
