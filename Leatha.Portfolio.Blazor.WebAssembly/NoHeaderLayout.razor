@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+@using Leatha.Portfolio.Blazor.WebAssembly.Services
+@inject NavigationManager Navigation
+@inject LanguageService LanguageService
+@inject IJSRuntime JavaScriptRuntime
+
+<div class="app-shell">
+    <main class="app-main no-header no-scrollbar" @key="LanguageService.Current" @ref="_mainRef">
+        @Body
+    </main>
+</div>
+
+@code {
+    private ElementReference _mainRef;
+    private bool _resetScrollNeeded;
+
+    protected override void OnInitialized()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+        _resetScrollNeeded = true; // reset once on first load
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        var uri = new Uri(e.Location);
+
+        // only reset if there's no #fragment
+        _resetScrollNeeded = string.IsNullOrEmpty(uri.Fragment);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_resetScrollNeeded)
+        {
+            _resetScrollNeeded = false;
+            await JavaScriptRuntime.InvokeVoidAsync("scrollMainToTop");
+        }
+    }
+}

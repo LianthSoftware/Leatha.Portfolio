@@ -1,0 +1,7 @@
+﻿:global(.app-header) {
+    display: none !important;
+}
+
+:global(.app-main) {
+    padding-top: 1rem;
+}

@@ -96,7 +96,7 @@
 
 /* Mobile: stack rows like cards */
 /*@media (max-width: 680px) {*/
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .tech-table thead {
         display: none;
     }

@@ -10,7 +10,7 @@
   .wrap, .section-wrap, .footer-inner { max-width: 1200px; }
 }*/
 
-@media (min-width: 1400px) {
+@media screen and (min-width: 1400px) {
     .site-footer .footer-inner {
         max-width: 1100px;
         margin: 0 auto;
@@ -24,7 +24,7 @@
 }
 
 /* Large desktops down (≤1200px) */
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
     .section-wrap {
         padding-left: 2.5rem;
         padding-right: 2.5rem;
@@ -38,7 +38,7 @@
 }
 
 /* Desktops/Tablets (≤992px) */
-@media (max-width: 992px) {
+@media screen and (max-width: 992px) {
     .wrap {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -92,7 +92,7 @@
         margin: 0 auto;
     }
 
-/*    .tech-card {
+    /*    .tech-card {
         text-align: center;
 
         .tech-years {
@@ -135,7 +135,7 @@
 }
 
 /* Tablets/large phones (≤768px) */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .footer-inner {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -201,7 +201,7 @@
 }
 
 /* Special case for nav links. */
-@media (max-width: 900px) {
+@media screen and (max-width: 900px) {
     .nav-link {
         span:first-child {
             display: none;
@@ -214,7 +214,7 @@
 }
 
 /* Small phones (≤576px) */
-@media (max-width: 576px) {
+@media screen and (max-width: 576px) {
     .categories .cat-row .cat-icon {
         /*width: 180px;*/
     }
@@ -248,7 +248,7 @@
 }
 
 /* Special Case */
-@media (max-width: 500px) {
+@media screen and (max-width: 500px) {
     .language-dropdown {
         button {
             padding: 0.25rem;
@@ -265,7 +265,7 @@
 }
 
 /* Ultra-small devices (≤360px) */
-@media (max-width: 360px) {
+@media screen and (max-width: 360px) {
 
     .site-footer {
         .footer-inner {

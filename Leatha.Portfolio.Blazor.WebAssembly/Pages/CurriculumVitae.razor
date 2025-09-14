@@ -1,0 +1,168 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> ResourceLocale
+@inject NavigationManager Navigation
+@inject IJSRuntime JavaScriptRuntime
+@layout NoHeaderLayout
+
+@page "/curriculum-vitae"
+
+<div>
+    <a class="main-logo"
+       href="/"
+       @onclick='() => OnNavigationClick("")'
+       @onclick:preventDefault
+       @onclick:stopPropagation>
+        DH
+    </a>
+
+    <HeadTopSection/>
+
+    <div class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Personal Information</p>
+
+            <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_1_label"]</p>
+            <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_2_label"]</p>
+            <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_3_label"]</p>
+            <p class="description-paragraph">@ResourceLocale["resource_common_section_about_description_4_label"]</p>
+        </section>
+    </div>
+
+    <div class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Contact</p>
+            <!-- Contacts (no links, PDF-friendly) -->
+            <section class="cv-contacts" aria-label="Contact">
+                <!-- Address -->
+                <div class="cv-contact">
+                    <span class="icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+                        </svg>
+                    </span>
+                    <span class="label">U Tvrze 41/17, Prague, CZ</span>
+                </div>
+
+                <!-- Phone -->
+                <div class="cv-contact">
+                    <span class="icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.7 11.7 0 0 0 3.7.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A18 18 0 0 1 3 7a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.27.21 2.54.6 3.74a1 1 0 0 1-.25 1.06L6.6 10.8z"/>
+                        </svg>
+                    </span>
+                    <span class="label">+420 773 252 578</span>
+                </div>
+
+                <!-- Email -->
+                <div class="cv-contact">
+                    <span class="icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/>
+                        </svg>
+                    </span>
+                    <span class="label">davi.hruska@gmail.com</span>
+                </div>
+            </section>
+
+        </section>
+    </div>
+
+    <div class="section-wrap">
+        <section>
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">@ResourceLocale["resource_common_section_technologies_title"]</p>
+            <TechnologiesTable/>
+        </section>
+    </div>
+
+    <div class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Contracted projects</p>
+
+            <div class="categories">
+                @foreach (var project in _projectItems.OrderByDescending(i => i.Id))
+                {
+                    <article class="project cat-row">
+                        <div class="cat-icon">
+                            <figure class="logo-tile" aria-hidden="true">
+                                <img class="project-logo"
+                                     src="@project.ImagePath"
+                                     alt="@project.ImageAlt"
+                                     loading="lazy"
+                                     decoding="async"/>
+                            </figure>
+                        </div>
+                        <div class="cat-content">
+                            <h3>@project.Name</h3>
+                            <div>@((MarkupString)project.Description.GetTranslation())</div>
+                            @if (project.Tags is { Length: > 0 })
+                            {
+                                <div class="card-tags mt-3">
+                                    @foreach (var tag in project.Tags)
+                                    {
+                                        <span class="tag">@tag</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+    </div>
+
+    <div class="section-wrap" style="padding-top: 2rem;">
+        <section>
+            @* <h2 class="section-title">What I Build</h2> *@
+            <p class="subtitle" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Hobby projects</p>
+
+            <div class="categories">
+                @foreach (var project in _hobbyProjectItems.OrderBy(i => i.Id))
+                {
+                    <article class="project cat-row" style="margin-top: 3rem;">
+                        <div class="cat-icon">
+                            <img src="@project.ImagePath" alt="@project.AltText" style="max-width: 150px;"/>
+
+                        </div>
+                        <div class="cat-content">
+                            <h3>@project.Name</h3>
+                            <div>@((MarkupString)project.Description.GetTranslation())</div>
+                            @if (project.Tags is { Length: > 0 })
+                            {
+                                <div class="card-tags mt-3">
+                                    @foreach (var tag in project.Tags)
+                                    {
+                                        <span class="tag">@tag</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+@code
+{
+    private readonly IReadOnlyList<Project> _projectItems = ProjectsData.All;
+    private readonly IReadOnlyList<HobbyProject> _hobbyProjectItems = ProjectsData.HobbyProjects;
+
+    private async Task OnNavigationClick(string key)
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/" + key, StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page → just scroll to top
+            await JavaScriptRuntime.InvokeVoidAsync("scrollMainToTop");
+            // optional: clear hash if present
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", key);
+        }
+        else
+        {
+            // Different page → normal navigation
+            Navigation.NavigateTo("/" + key);
+        }
+    }
+}

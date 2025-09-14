@@ -807,6 +807,21 @@ body {
   inset: 0; /* top/right/bottom/left: 0 */
   padding-top: var(--header-h);
 }
+.app-main.no-header {
+  padding-top: 1rem;
+}
+
+.no-header .actions, .no-header .acception-offers {
+  display: none;
+}
+.no-header .section-wrap {
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+}
+.no-header .main-logo {
+  position: absolute;
+  margin: 0.75rem 2rem;
+}
 
 /* Make sections breathe under a fixed header */
 .app-main .section-wrap {
@@ -850,6 +865,24 @@ body {
 }
 
 .app-main::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ===== Firefox ===== */
+.app-main {
+  scrollbar-width: thin; /* thin | auto | none */
+  scrollbar-color: var(--sb-thumb) transparent; /* thumb track */
+}
+
+/* ===== Hide scrollbar completely (still scrollable) ===== */
+.app-main.no-scrollbar {
+  -ms-overflow-style: none; /* IE / Edge legacy */
+  scrollbar-width: none; /* Firefox */
+}
+
+.app-main.no-scrollbar::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
   background: transparent;
 }
 
@@ -1124,6 +1157,188 @@ body {
   .cat-icon {
     margin-bottom: 0.5rem;
   }
+}
+/* Contacts grid */
+.cv-contacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 12px 0 0;
+}
+
+/* Card */
+.cv-contact {
+  /*display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 16px;
+  border: 1px solid #d0d7de;
+  border-radius: 14px;
+  background: #fff;
+  color: #111;*/
+  /* keep each card intact for PDF/print */
+  /*break-inside: avoid;
+  page-break-inside: avoid;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 16px;
+  border: 1px solid #d0d7de;
+  border-radius: 14px;
+  background: #fff;
+  /* color: #111; */
+  break-inside: avoid;
+  page-break-inside: avoid;
+  /* display: grid
+  ; */
+  /* grid-template-columns: 260px 1fr; */
+  gap: 28px;
+  align-items: center;
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--card-bg, radial-gradient(1200px 600px at 50% -240px, #14363a 0%, #0f2226 45%, #0b181b 100%));
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  box-shadow: var(--shadow, 0 12px 36px rgba(0, 0, 0, 0.45));
+  /* display: grid
+  ; */
+  /* grid-template-columns: 260px 1fr; */
+  /* grid-template-areas: "icon content"; */
+  align-items: center;
+  gap: 12px;
+}
+
+/* Icon above label */
+.cv-contact .icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 8px;
+}
+
+.cv-contact .icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Text */
+.cv-contact .label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  word-break: break-word; /* long emails */
+}
+
+/* Responsive wrap */
+@media (max-width: 720px) {
+  .cv-contacts {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .cv-contacts {
+    grid-template-columns: 1fr;
+  }
+}
+@media print {
+  /* let the page flow */
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .app-main {
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    position: static !important;
+    box-shadow: none !important; /* avoid clipped shadows at edges */
+    background: #0e2124 !important;
+    background-image: none !important;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 10mm; /* space inside each page */
+    padding-bottom: 8mm; /* space inside each page */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  /* allow sections to break across pages (prevents big gaps) */
+  .section-wrap,
+  .section-wrap > section {
+    /*break-inside: auto !important;*/
+    break-inside: avoid;
+    /*page-break-inside: auto !important;*/
+    page-break-inside: avoid;
+  }
+  /* keep small blocks intact only */
+  .project,
+  .cat-row,
+  .cv-contact {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* keep heading with the first paragraph/table/etc. */
+  .subtitle,
+  h2, h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  /* nicer text flow */
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  @page {
+    size: A4;
+    margin: 18mm 12mm 14mm 12mm;
+  }
+  /* Let content split naturally */
+  .project,
+  .cat-row,
+  .card {
+    break-inside: auto !important; /* allow split */
+    page-break-inside: auto !important;
+    overflow: visible !important;
+  }
+  /* Remove visual chrome that looks bad when cut */
+  .project,
+  .cat-row,
+  .card {
+    background: transparent !important; /* or a solid color */
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: 0 !important; /* avoids half-borders at breaks */
+    padding: 0 !important; /* optionally tighten for print */
+  }
+  /* Keep headings with the first block of content */
+  .card h2, .card h3, .subtitle {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  /* Optional: give inner content its own spacing */
+  .card .card-body {
+    margin: 0 0 10mm 0 !important;
+  }
+  .no-header .main-logo {
+    display: none;
+  }
+  /* allow sections to break across pages */
+  .section-wrap,
+  .section-wrap > section {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  /* keep heading with the first line, but relax paragraph constraints */
+  .subtitle {
+    break-after: avoid;
+  }
+  p {
+    orphans: 1;
+    widows: 1;
+  }
+  /* was 3/3, which is strict */
 }
 
 /*# sourceMappingURL=app.css.map */

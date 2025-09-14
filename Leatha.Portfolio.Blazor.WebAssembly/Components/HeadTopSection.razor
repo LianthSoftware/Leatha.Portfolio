@@ -1,0 +1,82 @@
+﻿@inherits ComponentBase
+
+@inject IStringLocalizer<SharedResource> ResourceLocale
+@inject NavigationManager Navigation
+@inject IJSRuntime JavaScriptRuntime
+
+<div class="wrap">
+    <section>
+        <h1 class="title">DAVID HRUŠKA</h1>
+        <p class="subtitle m-0">@ResourceLocale["resources_common_job_title"]<span><img src="img/icon_flag_czechia_48.png" alt="Czech Flag" style="width: 32px; height: 32px; margin-left: 1rem;" /></span></p>
+        <p style="margin-bottom: 1.5rem; text-shadow: 3px 3px 12px rgb(0 255 255 / 29%); color: #627978;">@_years @ResourceLocale["resource_common_years_subtitle"]</p>
+
+        <div class="chips" aria-label="Skills">
+            <span class="chip">C#</span>
+            <span class="chip">.NET</span>
+            <span class="chip">Blazor</span>
+            <span class="chip">Godot</span>
+            <span class="chip">MSSQL</span>
+            <span class="chip">MongoDB</span>
+        </div>
+
+        <div class="actions">
+            <a class="btn btn-primary" href="David_Hruska_CV_v1.pdf" download>@ResourceLocale["resource_common_download_button"]</a>
+            @* <a class="btn btn-primary" href="/curriculum-vitae">@ResourceLocale["resource_common_download_button"]</a> *@
+            @* <a class="btn btn-ghost" href="#contact">@ResourceLocale["resource_common_contact_button"]</a> *@
+            <a class="btn btn-ghost"
+               href="#contact"
+               @onclick="OnContactsClick"
+            @onclick:preventDefault
+            @onclick:stopPropagation>
+                @ResourceLocale["resource_common_contact_button"]
+            </a>
+        </div>
+    </section>
+
+    <aside class="avatar-wrap" aria-hidden="true">
+        <div class="avatar">
+            <!-- Simple SVG silhouette placeholder -->
+            @*             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar silhouette">
+                <path fill="#021014" d="M128 144c-38.1 0-69-30.9-69-69S89.9 6 128 6s69 30.9 69 69-30.9 69-69 69z"/>
+                <path fill="#051b1f" d="M31 228c0-41 43.5-74 97-74s97 33 97 74v22H31v-22z"/>
+            </svg> *@
+            <img src="img/profile_photo_portfolio_1.png" alt="Profile Photo" />
+        </div>
+        <label class="acception-offers">@ResourceLocale["resource_common_accepting_offers_label"]</label>
+    </aside>
+</div>
+
+@code {
+    private readonly int _years = CalculateAge(new DateTime(1994, 4, 20));
+
+    private static int CalculateAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - birthDate.Year;
+
+        // If birthday hasn't occurred yet this year, subtract 1.
+        if (birthDate.Date > today.AddYears(-age))
+        {
+            age--;
+        }
+
+        return age;
+    }
+
+    private async Task OnContactsClick()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+
+        if (uri.AbsolutePath.Equals("/", StringComparison.OrdinalIgnoreCase))
+        {
+            // Same page: set hash without navigation and scroll
+            await JavaScriptRuntime.InvokeVoidAsync("setHashSilently", "#contact");
+            await JavaScriptRuntime.InvokeVoidAsync("scrollToElementByCss", "contact", "--header-h");
+        }
+        else
+        {
+            // Cross-page: navigate with fragment; Projects.razor will handle the scroll after render
+            Navigation.NavigateTo("/#contact", forceLoad: false);
+        }
+    }
+}
