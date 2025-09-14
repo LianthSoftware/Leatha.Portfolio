@@ -42,7 +42,14 @@
             </svg> *@
             <img src="img/profile_photo_portfolio_1.png" alt="Profile Photo" />
         </div>
-        <label class="acception-offers">@ResourceLocale["resource_common_accepting_offers_label"]</label>
+        <div class="acception-offers">
+            <a href="#contact"
+               @onclick="OnContactsClick"
+               @onclick:preventDefault
+               @onclick:stopPropagation>
+                @ResourceLocale["resource_common_accepting_offers_label"]
+            </a>
+        </div>
     </aside>
 </div>
 
